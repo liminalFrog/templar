@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 import curses
 import argparse
@@ -42,8 +43,17 @@ def main(stdscr):
   stdscr.addstr(8, 0, "Image received\n=======\n")
   for line in text.splitlines():
     stdscr.addstr(line)
+    stdscr.addstr('\n')
   stdscr.addstr("\n=======")
 
-  stdscr.getch()
+  quitApp = False
+  while quitApp == False:
+    k = stdscr.getkey()
+    if k != "q":
+      msg = "You pressed the " + k + " key."
+      stdscr.addstr(8, 0, msg)
+      stdscr.refresh()
+    else:
+      quitApp = True
 
 curses.wrapper(main)
